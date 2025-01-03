@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MeowScan</string>
+    <string name="accuracy_text">Akurasi: %.2f%%</string>
+    <string name="_1_buka_aplikasi_dan_pilih_cek_ras_kucing">1. Buka aplikasi dan pilih \'Cek Ras Kucing\'.</string>
+    <string name="_2_pilih_gambar_dari_galeri_atau_kamera_untuk_mengunggah_foto_kucing_anda">2. Pilih gambar dari galeri atau kamera untuk mengunggah foto kucing Anda.</string>
+    <string name="_3_tunggu_beberapa_saat_hingga_sistem_memproses_gambar">3. Tunggu beberapa saat hingga sistem memproses gambar.</string>
+    <string name="_4_hasil_prediksi_akan_ditampilkan_beserta_informasi_ras_kucing">4. Hasil prediksi akan ditampilkan beserta informasi ras kucing.</string>
+    <string name="_5_jika_selesai_anda_bisa_kembali_ke_halaman_utama">5. Jika selesai, Anda bisa kembali ke halaman utama.</string>
+    <string name="aplikasi_pengenalan_ras_kucing">Aplikasi Pengenalan Ras Kucing</string>
+    <string name="cek_ras_kucing">Cek Ras Kucing</string>
+    <string name="panduan_penggunaan">Panduan Penggunaan</string>
+    <string name="keluar">Keluar</string>
+    <string name="tombol_untuk_membuka_panduan_penggunaan_aplikasi">Tombol untuk membuka panduan penggunaan aplikasi</string>
+    <string name="perawatan_ras">Perawatan Ras :</string>
+    <string name="care_information">Care Information</string>
+    <string name="catname">CatName</string>
+    <string name="accuracy">Accuracy:</string>
+    <string name="gambar_kucing_ras_ragdoll">Gambar kucing ras Ragdoll</string>
+    <string name="ambil_foto_dengan_kamera">Ambil Foto dengan Kamera</string>
+    <string name="predik">Predik</string>
+    <string name="pilih_gambar_dari_galeri">Pilih Gambar dari Galeri</string>
+    <string name="gambar_kucing">gambar_kucing</string>
+</resources>

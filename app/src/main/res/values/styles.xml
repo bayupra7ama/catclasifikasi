@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="HeaderTextStyle">
+        <item name="android:textColor">@color/primaryColorDark</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BodyTextStyle">
+        <item name="android:textColor">@color/primaryColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+</resources>

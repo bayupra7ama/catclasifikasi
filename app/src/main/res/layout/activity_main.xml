@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <!-- Gambar Bulat -->
+    <ImageView
+        android:id="@+id/circularImageView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/circle_shape"
+        android:src="@drawable/gambar_kucing"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/aplikasi_pengenalan_ras_kucing"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/roboto_bold"
+        android:layout_marginBottom="32dp"
+        android:padding="16dp"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/btnCekRasKucing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cek_ras_kucing"
+        android:fontFamily="@font/roboto_bold"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btnPanduanPenggunaan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:padding="16dp"
+        android:text="@string/panduan_penggunaan"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/tombol_untuk_membuka_panduan_penggunaan_aplikasi" />
+
+    <Button
+        android:id="@+id/btnKeluar"
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:fontFamily="@font/roboto_bold"
+        android:layout_height="wrap_content"
+        android:text="@string/keluar" />
+
+</LinearLayout>
+</ScrollView>

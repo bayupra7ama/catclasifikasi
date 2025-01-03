@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Judul Halaman -->
+    <TextView
+        android:id="@+id/tvPanduanTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Panduan Penggunaan Aplikasi"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- ScrollView untuk Langkah Panduan -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Langkah Panduan 1 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/_1_buka_aplikasi_dan_pilih_cek_ras_kucing"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp" />
+
+            <!-- Langkah Panduan 2 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/_2_pilih_gambar_dari_galeri_atau_kamera_untuk_mengunggah_foto_kucing_anda"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp" />
+
+            <!-- Langkah Panduan 3 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/_3_tunggu_beberapa_saat_hingga_sistem_memproses_gambar"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp" />
+
+            <!-- Langkah Panduan 4 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/_4_hasil_prediksi_akan_ditampilkan_beserta_informasi_ras_kucing"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp" />
+
+            <!-- Langkah Panduan 5 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/_5_jika_selesai_anda_bisa_kembali_ke_halaman_utama"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+        
+    </ScrollView>
+
+    <!-- Tombol Kembali -->
+    <Button
+        android:id="@+id/btnKembali"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Kembali"
+        android:backgroundTint="#FF6200EE"
+        android:textColor="#FFFFFF" />
+
+</LinearLayout>
