@@ -1,6 +1,6 @@
 package com.example.myapplication.remote
 
-import com.example.myapplication.response.ApiPrediksiResponse
+import com.example.myapplication.response.ApiResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Multipart
@@ -12,6 +12,6 @@ interface ApiService {
     @POST("predict")
     fun predictImage(
         @Part image: MultipartBody.Part
-    ): Call<ApiPrediksiResponse>
+    ): Call<ApiResponse>
 }
 

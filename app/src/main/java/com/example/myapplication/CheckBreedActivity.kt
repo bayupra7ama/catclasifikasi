@@ -6,12 +6,14 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.FileProvider
 import com.example.myapplication.databinding.ActivityCheckBreedBinding
 import com.example.myapplication.remote.RetrofitClient
-import com.example.myapplication.response.ApiPrediksiResponse
+import com.example.myapplication.response.ApiResponse
+import com.example.myapplication.ui.DetailViewPagerActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -21,6 +23,7 @@ import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 
+@Suppress("DEPRECATION")
 class CheckBreedActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCheckBreedBinding
@@ -45,6 +48,7 @@ class CheckBreedActivity : AppCompatActivity() {
         binding.btnPostPhoto.setOnClickListener {
             val imageBitmap = (binding.imageView.drawable as? BitmapDrawable)?.bitmap
             if (imageBitmap != null) {
+                toggleUI(false) // Nonaktifkan tombol dan tampilkan ProgressBar
                 uploadImageToServer(imageBitmap)
             } else {
                 Toast.makeText(this, "Pilih atau ambil gambar terlebih dahulu!", Toast.LENGTH_SHORT).show()
@@ -52,6 +56,7 @@ class CheckBreedActivity : AppCompatActivity() {
         }
     }
 
+    @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -62,7 +67,7 @@ class CheckBreedActivity : AppCompatActivity() {
                     binding.imageView.setImageURI(selectedImageUri)
                     Toast.makeText(this, "Gambar berhasil diambil dari galeri!", Toast.LENGTH_SHORT).show()
                 }
-                cameraRequest-> {
+                cameraRequest -> {
                     val photo = data?.extras?.get("data") as Bitmap
                     binding.imageView.setImageBitmap(photo)
                     Toast.makeText(this, "Foto berhasil diambil!", Toast.LENGTH_SHORT).show()
@@ -72,66 +77,60 @@ class CheckBreedActivity : AppCompatActivity() {
     }
 
     private fun uploadImageToServer(bitmap: Bitmap) {
-        // Konversi bitmap ke byte array
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
         val imageBytes = byteArrayOutputStream.toByteArray()
 
-        // Simpan gambar sementara di cache directory
-        val file = File(cacheDir, "cat_image.jpg")
-        file.writeBytes(imageBytes)
+        val file = File(cacheDir, "cat_image.jpg").apply {
+            writeBytes(imageBytes)
+        }
 
-        // Uri gambar untuk Intent
-        val uri = FileProvider.getUriForFile(
-            this,
-            "${applicationContext.packageName}.provider",
-            file
-        )
-
-        // Panggil API Retrofit
         val requestBody = imageBytes.toRequestBody("image/jpeg".toMediaTypeOrNull())
-        val imagePart = MultipartBody.Part.createFormData("image", "image.jpg", requestBody)
+        val imagePart = MultipartBody.Part.createFormData("image", file.name, requestBody)
+
         val apiService = RetrofitClient.apiService
         val call = apiService.predictImage(imagePart)
 
-        call.enqueue(object : Callback<ApiPrediksiResponse> {
-            override fun onResponse(call: Call<ApiPrediksiResponse>, response: Response<ApiPrediksiResponse>) {
+        call.enqueue(object : Callback<ApiResponse> {
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                toggleUI(true) // Aktifkan kembali tombol dan sembunyikan ProgressBar
                 if (response.isSuccessful) {
                     val apiResponse = response.body()
                     if (apiResponse != null) {
-                        val confidence = apiResponse.confidence
-                        val predictedClass = apiResponse.jsonMemberClass
-                        val comment = apiResponse.comment
-                        val info = apiResponse.careInfo
-
-                        if (!predictedClass.isNullOrEmpty()) {
-                            val intent = Intent(this@CheckBreedActivity, DetailActivity::class.java)
-
-                            // Kirim data ke DetailActivity
-                            intent.putExtra("CAT_NAME", predictedClass)
-                            intent.putExtra("CARE_INFO", info)
-                            intent.putExtra("ACCURACY", confidence)
-                            intent.putExtra("Comment", comment)
-
-                            // Kirim Uri gambar
-                            intent.putExtra("CAT_IMAGE_URI", uri.toString())
-
-                            startActivity(intent)
-                        } else {
-                            Toast.makeText(binding.root.context, "Ras Tidak Diketahui, atau gambar anda kurang jelas", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@CheckBreedActivity, DetailViewPagerActivity::class.java).apply {
+                            putExtra("CAT_IMAGE_URI", file.absolutePath)
+                            putExtra("CARE_DETAILS", apiResponse.careDetails)
+                            putExtra("FOOD_DETAILS", apiResponse.makanan)
                         }
+                        startActivity(intent)
                     } else {
-                        Toast.makeText(binding.root.context, "Respons kosong dari server!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@CheckBreedActivity, "Respons kosong dari server!", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(binding.root.context, "Terjadi kesalahan: ${response.message()}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@CheckBreedActivity,
+                        "Gagal mengunggah gambar: ${response.message()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
-            override fun onFailure(call: Call<ApiPrediksiResponse>, t: Throwable) {
-                Toast.makeText(this@CheckBreedActivity, "Gagal terhubung ke server: ${t.message}", Toast.LENGTH_SHORT).show()
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                toggleUI(true) // Aktifkan kembali tombol dan sembunyikan ProgressBar
+                Toast.makeText(
+                    this@CheckBreedActivity,
+                    "Gagal mengunggah gambar: ${t.localizedMessage}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Log.e("UploadImageError", "Error saat mengunggah gambar", t)
             }
         })
     }
 
+    private fun toggleUI(enable: Boolean) {
+        binding.progressBar.visibility = if (enable) View.GONE else View.VISIBLE
+        binding.btnChooseImage.isEnabled = enable
+        binding.btnTakePhoto.isEnabled = enable
+        binding.btnPostPhoto.isEnabled = enable
+    }
 }

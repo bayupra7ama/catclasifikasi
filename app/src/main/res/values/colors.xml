@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#6200EE</color>
-    <color name="primaryColorDark">#3700B3</color>
-    <color name="accentColor">#03DAC5</color>
-    <color name="backgroundColor">#F5F5F5</color>
+    <color name="primaryColor">#F4A261</color> <!-- Warna jingga muda dari logo -->
+    <color name="primaryColorDark">#8C564B</color> <!-- Warna cokelat terang -->
+    <color name="accentColor">#A8D5BA</color> <!-- Warna hijau lembut -->
+    <color name="backgroundColor">#FAF3E0</color> <!-- Warna krem -->
+    <color name="textColorPrimary">#5D4037</color> <!-- Warna cokelat gelap untuk teks -->
+    <color name="textColorSecondary">#FFFFFF</color> <!-- Warna putih untuk teks sekunder -->
 </resources>

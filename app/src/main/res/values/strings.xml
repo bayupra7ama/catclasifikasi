@@ -20,4 +20,16 @@
     <string name="predik">Predik</string>
     <string name="pilih_gambar_dari_galeri">Pilih Gambar dari Galeri</string>
     <string name="gambar_kucing">gambar_kucing</string>
+    <string name="perawatana">perawatan</string>
+    <string name="makanan">makanan</string>
+    <string name="perawatan_bulu">Perawatan Bulu</string>
+    <string name="perawatan_kuku">perawatan kuku</string>
+    <string name="perawatan_gigi">perawatan gigi</string>
+    <string name="aktivitas">Aktivitas</string>
+    <string name="royal_canin">Royal Canin</string>
+    <string name="nutrisi">Nutrisi:</string>
+    <string name="product_image">Product Image</string>
+    <string name="meong_scan">Meong Scan</string>
+    <string name="kembali">Kembali</string>
+    <string name="panduan_penggunaan_aplikasi">Panduan Penggunaan Aplikasi</string>
 </resources>

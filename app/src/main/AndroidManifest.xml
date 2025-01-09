@@ -18,6 +18,11 @@
         <activity
             android:name=".DetailActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".ui.DetailViewPagerActivity"
+            android:exported="false" />
+
         <activity
             android:name=".CheckBreedActivity"
             android:exported="false" />
